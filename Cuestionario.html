@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1NT3G-WEB</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header-8">
+	
+    <div class="menu container">
+        <a href="#" class="logo">1NTEG-WEB</a>
+        <input type="checkbox" id="menu">
+        <label for="menu"><img src="imagenes/menu.png" class="menu-icono" alt=""></label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+        </nav>
+    </div>
+        <div class="header-info">
+			<h1>Cuestionario</h1>
+			<h2>Mide tu nivel de aprendizaje!</h2>
+		</div>
+</header>
+<br><br>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #1a1a1a; 
+            color: #fff; 
+            padding: 0;
+        }
+    
+        .exercise {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #333; 
+            border-radius: 5px;
+            background-color: #2b2b2b; 
+        }
+    
+        .exercise h3 {
+            margin: 0 0 10px 0;
+            color: #fff; 
+        }
+    
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #444; 
+            border-radius: 5px;
+            background-color: #333; 
+            color: #fff; 
+        }
+    
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007BFF; 
+        }
+    
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            white-space: pre-line; 
+        }
+    
+        .correct {
+            color: #28a745; 
+        }
+    
+        .incorrect {
+            color: #dc3545; 
+        }
+    
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+    
+<body>
+    <h1>Cuestionario de Integrales Indifinida</h1>
+    <p>Resuelve los siguientes ejercicios y obtén tu calificación.</p>
+    <p>Solo debe colocar la respuesta para verificar si su resultado <br>
+       es correcto. El proceso debe realizarse en un cuaderno o carpeta.<br>
+       Si la respuesta tiene exponentes, presione la tecla Alt + 94 para <br>
+       poner el símbolo ^. Por ejemplo, si el resultado fuera 3x^2. Además, <br>
+       siempre debe terminar con '+ C', ya que se trata de integrales indefinidas<br> inmediatas.</p>
+    <form id="quiz-form">
+        <div id="quiz-container">
+        </div>
+        <button type="button" onclick="evaluateQuiz()">Calificar</button>
+    </form>
+    <div id="result" style="margin-top: 20px; font-size: 18px;"></div>
+    <script>
+        const exercises = [
+            { problem: '∫(x²+3x+1)dx', solutionSteps: ['x^3/3+3x^2/2+x+c',  ' ∫x² dx + ∫3x dx + ∫1 dx',' ∫x^2 dx+3∫x dx+∫dx','x^3/3+c3x^2/2+c x+c',' Resultado: x^3/3+3x^2/2+x+c'] },
+            { problem: '∫(3x+4)^6 dx', solutionSteps: ['(3x+4)^7/21 + c',  ' Aplicamos sustitución.','1/3  (3x+4)^7/7+c',' Resultado: (3x+4)^7/21 + c'] },
+            { problem: '∫7 dx / x^5', solutionSteps: ['-7/(4x^4) + c',  ' ∫7x^(-5) dx','7∫x^(-5) ⅆx','7x^-4/-4+c',' Resultado: -7/(4x^4) + c'] },
+            { problem: '∫e^sen x * cos(x) dx', solutionSteps: ['e^(sen x) + c',  'Sustitución: v = sen(x)','dv=cos(x) dx','Resultado: e^(sen x) + c' ]},
+            { problem: '∫sec^2(4x) * tan(4x) dx', solutionSteps: ['tan^2 4x/8 + c','⇒1/4  Tan4x*4sec^2 (4x)dx',' Sustitución: v = tan(4x)','dv=sec^2 4x.4 dx','1/2  tan^2 4x/2+c',' Resultado: tan^2 4x/8 + c' ]},
+            { problem: '∫ax / (4x^2 + 9)', solutionSteps: ['1/2*1/3 arc tg 2x/3+c', ' 1/2∫2dx/4x^2+9=','.Aplicamos: √V^2 =√4x^2','v=2x','dv=2ax','Aplicamos: √a^2=√9v','a=3',' Resultado: 1/2*1/3 arc tg 2x/3+c'] },
+            { problem: '∫dx / (4x^2 - 9)', solutionSteps: ['1/12 * ln 2x-3/2x+3 + c',' Sustitución:√v^2 =√4x^2','v=2x ','dv=2dx ','√a^2=√9 ','a=3 ','1/2*1/2.3 ln 2x-3/2x+3+c ',' Resultado: 1/12 * ln 2x-3/2x+3 + c'] },
+            { problem: '∫dx / √16 - 9x^2', solutionSteps: ['1/3 * arc sen 3x/4 + c', ' Sustitución:√v^2 =√9x^2 ','v=3x ','dv=3dx ',' √a^2 =√16',' a=4',' Resultado: 1/3 * arc sen 3x/4 + c'] },
+            { problem: '∫ae^∅ + b/ae^∅ - b', solutionSteps: ['-∅ + 2 ln(ae^∅ - b)+c',  ' Dividimos: b+ae^∅ /-b+ae^∅ esto es igual a: 1 que nos da: -b+ae^∅   ','-∅+2∫ae^∅ d∅/ae^∅-b ','Resultado: -∅ + 2 ln(ae^∅ - b) + c'] },
+            { problem: '∫x^n-1√a+bx^n', solutionSteps:[ '2/3abn (abx^n)^3/2 + c',' Sustitución: 1/abn∫(a+bx^n )^1/2   x^n-1   dx',' n=1/2  (abx^n )^3/2/3/2+c',' Resultado: 2/3abn (abx^n)^3/2 + c'] },
+        ];
+
+        function loadQuiz() {
+            const container = document.getElementById('quiz-container');
+            exercises.forEach((exercise, index) => {
+                const div = document.createElement('div');
+                div.classList.add('exercise');
+                div.innerHTML = `
+                    <h3>Ejercicio ${index + 1}: ${exercise.problem}</h3>
+                    <input type="text" id="answer-${index}" placeholder="Escribe tu respuesta">
+                    <p id="feedback-${index}" class="feedback"></p>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function evaluateQuiz() {
+            let score = 0;
+        
+            exercises.forEach((exercise, index) => {
+                const userAnswer = document.getElementById(`answer-${index}`).value.trim().toLowerCase().replace(/\s+/g, '');
+                const correctAnswer = exercise.solutionSteps[0].toLowerCase().replace(/\s+/g, '');
+                const feedback = document.getElementById(`feedback-${index}`);
+        
+                if (userAnswer === correctAnswer || userAnswer.includes(correctAnswer)) {
+                    feedback.innerHTML = `¡Correcto!<br>Proceso:<br>${exercise.solutionSteps.join('<br>')}`;
+                    feedback.classList.remove('incorrect');
+                    feedback.classList.add('correct');
+                    score++;
+                } else {
+                    feedback.innerHTML = `Incorrecto. Respuesta correcta:<br>${exercise.solutionSteps[0]}<br>Proceso:<br>${exercise.solutionSteps.join('<br>')}`;
+                    feedback.classList.remove('correct');
+                    feedback.classList.add('incorrect');
+                }
+            });
+        
+            const result = document.getElementById('result');
+                // Mensajes personalizados según la puntuación
+    if (score < exercises.length * 0.7) {
+        result.textContent = `Tu calificación es: ${score}/${exercises.length}. ¡Sigue practicando!`;
+    } else {
+        result.textContent = `¡Felicidades! Tu calificación es: ${score}/${exercises.length}. Wooo, has aprendido muy bien todos los conceptos de las fórmulas de integrales indefinidas inmediatas.`;
+    }
+}
+
+        
+        
+
+        loadQuiz();
+    </script>
+</body>
+<footer class="footer container">
+
+    <h3>1NT3G-WEB</h3>
+
+    <div class="links">
+        <ul>
+            <li><a href="#">Aprende con nosotros</a></li>
+            <li><a href="#">Aprende a integrar</a></li>
+            <li><a href="#">Tu puedes </a></li>
+        </ul>
+    </div>
+
+</footer>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1NT3G-WEB</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<header class="header-8">
+    
+    <div class="menu container">
+        <a href="#" class="logo">1NT3G-WEB</a>
+        <input type="checkbox" id="menu">
+        <label for="menu"><img src="imagenes/menu.png" class="menu-icono" alt=""></label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+        </nav>
+    </div>
+        <div class="header-info">
+            <h1>INTEGRALES DE RECÍPROCO</h1>
+            <h2>¡Practica ahora!</h2>
+        </div>
+</header>
+<br><br>
+<body>
+    <p>Solo debe colocar la respuesta para verificar si su resultado <br>
+        es correcto. El proceso debe realizarse en un cuaderno o carpeta.<br>
+        </p>
+    <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .exercise-1 {
+            margin-bottom: 20px;
+        }
+        .solution {
+            margin-top: 10px;
+            font-weight: bold;
+            white-space: pre-line;
+        }
+        #user-answer {
+            width: 300px;
+            height: 40px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        const exercises = [
+        { problem: '∫ dr/v ', solutionSteps: ['Aplicamos la fórmula: .∫ⅆr/v=ln(v)+C', 'Resolvemos las integrales individuales: ∫ ln(v) ','Resultado final: ln(v)+c'] }, 
+        { problem: '∫ dr/v^3 ', solutionSteps: ['Aplicamos la fórmula: .∫ⅆr/v=ln(v)+C ', 'Resolvemos las integrales individuales: ∫ -1/(2v^2)  ','Resultado final: -1/(2v^2)+c '] }, 
+        { problem: '∫ dr/v^4 ', solutionSteps: ['Aplicamos la fórmula: .∫ⅆr/v=ln(v)+C ', 'Resolvemos las integrales individuales: ∫  -1/(3v^3)','Resultado final: -1/(3v^3)+c '] }, 
+        { problem: '∫ dr/v^2 ', solutionSteps: ['Aplicamos la fórmula: .∫ⅆr/v=ln(v)+C ', 'Resolvemos las integrales individuales: ∫ -1/v  ','Resultado final: -1/v+c '] },
+
+        ];
+
+        let currentExercise;
+
+        function loadExercise() {
+            const index = Math.floor(Math.random() * exercises.length);
+            currentExercise = exercises[index];
+            document.getElementById('exercise').textContent = currentExercise.problem;
+            document.getElementById('user-answer').value = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('solution').textContent = '';
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase().replace(/\s+/g, '');
+            const feedback = document.getElementById('feedback');
+            const solution = document.getElementById('solution');
+        
+            let solutionText = 'Solución:\n';
+            currentExercise.solutionSteps.forEach(step => {
+                solutionText += step + '\n\n';
+            });
+        
+            solution.textContent = solutionText;
+        
+            const lastStep = currentExercise.solutionSteps[currentExercise.solutionSteps.length - 1];
+            const finalStep = lastStep.includes(': ') ? lastStep.split(': ')[1].toLowerCase().replace(/\s+/g, '') : lastStep.toLowerCase().replace(/\s+/g, '');
+
+        
+            if (userAnswer === finalStep) {
+                feedback.textContent = '¡Correcto!';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = 'Incorrecto.';
+                feedback.style.color = 'red';
+            }
+        }
+        
+    </script>
+</body>
+<body>
+    <h1 class="logo">RESUELVE EL SIGUIENTE EJERCICIO</h1>
+    <div class="exercise">
+        <p><strong>Resuelve:</strong> <span id="exercise"></span></p>
+        <input type="text"  id="user-answer" placeholder="Escribe tu respuesta aquí">
+        <style>
+            input, textarea {
+                color: #060100; 
+                background-color: #fffafa; 
+            }
+        </style>
+        <br>
+        <button class="btn-2" onclick="checkAnswer()">Confirmar respuesta</button>
+        <br><br><br><br>
+        <p id="feedback"></p>
+        <p class="solution" id="solution"></p>
+    </div>
+    <button class="btn-2" onclick="loadExercise()">Realizar otro ejercicio</button>
+
+    <script>
+        loadExercise();
+    </script>
+</body>
+<br><br><br><br>
+<footer class="footer container">
+
+    <h3>1NT3G-WEB</h3>
+
+    <div class="links">
+        <ul>
+            <li><a href="#">Aprende con nosotros</a></li>
+            <li><a href="#">Aprende a integrar</a></li>
+            <li><a href="#">Tu puedes </a></li>
+        </ul>
+    </div>
+
+</footer>
+</html>
